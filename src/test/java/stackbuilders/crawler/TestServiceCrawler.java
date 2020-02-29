@@ -9,17 +9,15 @@ import stackbuilders.crawler.services.ServiceCrawlerImpl;
 
 public class TestServiceCrawler {
 
-	//@Test
+	@Test
 	public void getHtmlDocumentTest() {
 		String url = "https://news.ycombinator.com/";
 		ServiceCrawlerImpl crawler = new ServiceCrawlerImpl();
 		List<News> news= crawler.loadNews(url);
-		
+		System.out.println(" \n Number of Entries: " + news.size() + "\n");
 		for (News a : news) {
-			System.out.println(a.getNumberOrder() + " " + a.getTitle() + " " + a.getPoints()+ " " + a.getAmountComments());
+			System.out.println("No."+a.getNumberOrder() + " Title:" + a.getTitle() + " Points: " + a.getPoints()+ " Amount: " + a.getAmountComments());
 		}
-		
-		
 	}
 	
 	@Test
@@ -27,9 +25,9 @@ public class TestServiceCrawler {
 		String url = "https://news.ycombinator.com/";
 		ServiceCrawlerImpl crawler = new ServiceCrawlerImpl();
 		List<News> news= crawler.getEntriesMoreFiveWordsInTitle(url);
-		System.out.println("=======Tienen mas de 5");
+		System.out.println("\n 1. Filter all previous entries with more than five words in the title ordered by the amount of comments first."+ "\n");
 		for (News a : news) {
-			System.out.println(a.getNumberOrder() + " " + a.getTitle() + " " + a.getPoints()+ " " + a.getAmountComments());
+			System.out.println("No."+a.getNumberOrder() + " Title:" + a.getTitle() + " Points: " + a.getPoints()+ " Amount: " + a.getAmountComments());
 		}
 	}
 	@Test
@@ -37,9 +35,11 @@ public class TestServiceCrawler {
 		String url = "https://news.ycombinator.com/";
 		ServiceCrawlerImpl crawler = new ServiceCrawlerImpl();
 		List<News> news= crawler.getEntriesLessFiveWordsInTitle(url);
-		System.out.println("=======Tienen menos de 5");
+		System.out.println("\n 2. Filter all previous entries with less than or equal to five words in the title ordered by points."+ "\n");
 		for (News a : news) {
-			System.out.println(a.getNumberOrder() + " " + a.getTitle() + " " + a.getPoints()+ " " + a.getAmountComments());
+			System.out.println("No."+a.getNumberOrder() + " Title:" + a.getTitle() + " Points: " + a.getPoints()+ " Amount: " + a.getAmountComments());
 		}
 	}
+	
+	
 }

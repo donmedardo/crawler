@@ -68,7 +68,6 @@ public class ServiceCrawlerImpl {
 	public List<News> loadNews(String url){
 		Document document = getHtmlDocument(url);
 		Elements entradas = document.select(".itemlist");
-		System.out.println("Número de entradas en la página inicial de Jarroba: " + entradas.size() + "\n");
 		List<News> enties = new ArrayList<>();
 		boolean agregar;
 		News newTemp = new News();

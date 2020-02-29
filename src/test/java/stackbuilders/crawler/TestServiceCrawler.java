@@ -1,5 +1,8 @@
 package stackbuilders.crawler;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+
 import java.util.List;
 
 import org.junit.Test;
@@ -40,6 +43,32 @@ public class TestServiceCrawler {
 			System.out.println("No."+a.getNumberOrder() + " Title:" + a.getTitle() + " Points: " + a.getPoints()+ " Amount: " + a.getAmountComments());
 		}
 	}
+	
+	@Test public void testSomeLibraryMethod() {
+		ServiceCrawlerImpl crawler = new ServiceCrawlerImpl();
+		String url = "https://news.ycombinator.com/";
+		List<News> news= crawler.loadNews(url);
+        assertTrue("is correct  'true'", news.size()==30);
+    }
+	@Test public void validateNumberOfWordsInTitleMajorFive() {
+		ServiceCrawlerImpl crawler = new ServiceCrawlerImpl();
+		String url = "https://news.ycombinator.com/";
+		List<News> news= crawler.getEntriesLessFiveWordsInTitle(url);
+		for(News newsTmp: news){
+			assertTrue("is correct  'true'", crawler.countWords( newsTmp.getTitle())<=5);
+		}
+        
+    }
+	
+	@Test public void validateNumberOfWordsInTitleLessFive() {
+		ServiceCrawlerImpl crawler = new ServiceCrawlerImpl();
+		String url = "https://news.ycombinator.com/";
+		List<News> news= crawler.getEntriesMoreFiveWordsInTitle(url);
+		for(News newsTmp: news){
+			assertTrue("is correct  'true'", crawler.countWords( newsTmp.getTitle())>5);
+		}
+        
+    }
 	
 	
 }

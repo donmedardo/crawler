@@ -2,7 +2,9 @@ package stackbuilders.crawler.services;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.jsoup.Connection.Response;
 import org.jsoup.Jsoup;
@@ -36,6 +38,32 @@ public class ServiceCrawlerImpl {
 		    }
 	    return doc;
 	} 
+	
+	public List<News> getEntriesMoreFiveWordsInTitle(String url){
+		List<News>allEntries= loadNews(url);
+		List<News> result = allEntries.stream().filter(news-> countWords(news.getTitle())>5 ).collect(Collectors.toList());
+		
+		return result.stream()
+				.sorted(Comparator.comparingInt(News::getAmountComments))
+				.collect(Collectors.toList());
+	}
+	
+	public List<News> getEntriesLessFiveWordsInTitle(String url){
+		List<News>allEntries= loadNews(url);
+		List<News> result = allEntries.stream().filter(news-> countWords(news.getTitle())<=5 ).collect(Collectors.toList());
+		return result.stream()
+				.sorted(Comparator.comparingInt(News::getPoints))
+				.collect(Collectors.toList());
+	}
+	
+	public int countWords(String titulo){
+		String trim = titulo;
+		int a; 
+		if (trim.isEmpty())
+		    a= 0;
+		a= trim.split("\\s+").length;
+		return a;
+	}
 
 	public List<News> loadNews(String url){
 		Document document = getHtmlDocument(url);
